@@ -5,4 +5,8 @@
     <string name="document">文档</string>
     <string name="mine">我的</string>
 
+
+    <string name="book">书籍</string>
+    <string name="recommend">推荐</string>
+    <string name="hot">热门</string>
 </resources>

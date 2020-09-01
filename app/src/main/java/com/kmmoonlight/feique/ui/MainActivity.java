@@ -1,10 +1,13 @@
-package com.kmmoonlight.feique;
+package com.kmmoonlight.feique.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.kmmoonlight.feique.R;
+import com.kmmoonlight.feique.ui.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="57dp">
+
+
+    <View
+        android:background="#E9E9E9"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_find"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_find"
+                android:src="@mipmap/ic_find_fragment_select"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="26dp"
+                android:layout_height="26dp"/>
+
+            <TextView
+                android:textColor="#1296db"
+                android:id="@+id/tv_find"
+                android:text="@string/find"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/iv_find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_doc"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_doc"
+                android:src="@mipmap/ic_doc_fragment_unselect"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="26dp"
+                android:layout_height="26dp"/>
+
+            <TextView
+                android:textColor="#8a8a8a"
+                android:id="@+id/tv_doc"
+                android:text="@string/document"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/iv_doc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_mine"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_mine"
+                android:src="@mipmap/ic_my_fragment_unselect"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="26dp"
+                android:layout_height="26dp"/>
+
+            <TextView
+                android:textColor="#8a8a8a"
+                android:id="@+id/tv_mine"
+                android:text="@string/mine"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/iv_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

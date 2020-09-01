@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    <com.stx.xhb.androidx.XBanner
+        app:AutoPlayTime="3000"
+        app:pointsContainerBackground="#44666666"
+        app:pointNormal="@drawable/shape_point_normal"
+        app:pointSelect="@drawable/shape_point_select"
+        app:pointsPosition="RIGHT"
+        app:tipTextSize="12sp"
+        app:isShowTips="true"
+        app:isShowIndicatorOnlyOne="true"
+        app:pageChangeDuration="800"
+        android:id="@+id/x_banner"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+
+</LinearLayout>

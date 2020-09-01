@@ -2,15 +2,23 @@ package com.kmmoonlight.feique.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.kmmoonlight.feique.R;
 import com.kmmoonlight.feique.databinding.ActivityMainBinding;
 import com.kmmoonlight.feique.ui.base.BaseActivity;
+import com.kmmoonlight.feique.ui.fragment.DocFragment;
+import com.kmmoonlight.feique.ui.fragment.FindFragment;
+import com.kmmoonlight.feique.ui.fragment.MineFragment;
+
+import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ActivityMainBinding activityMainBinding;
+    private int nowFragmentIndex = 0;
+    private SupportFragment[] fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +29,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
+        nowFragmentIndex = 0;
         activityMainBinding.bottom.rlFind.setOnClickListener(this);
         activityMainBinding.bottom.rlDoc.setOnClickListener(this);
         activityMainBinding.bottom.rlMine.setOnClickListener(this);
+
+        if (findFragment(FindFragment.class) == null) {
+            FindFragment findFragment = new FindFragment();
+            DocFragment docFragment = new DocFragment();
+            MineFragment mineFragment = new MineFragment();
+            fragments = new SupportFragment[]{ findFragment, docFragment, mineFragment};
+            loadMultipleRootFragment(R.id.frame_container, 0, fragments);
+        }else {
+            FindFragment findFragment = findFragment(FindFragment.class);
+            DocFragment docFragment = findFragment(DocFragment.class);
+            MineFragment mineFragment = findFragment(MineFragment.class);
+            fragments = new SupportFragment[]{ findFragment, docFragment, mineFragment};
+        }
     }
 
     @Override
@@ -31,15 +53,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.rl_find:
-                chooseItem(0);
+                if (nowFragmentIndex != 0) {
+                    chooseItem(0);
+                    showHideFragment(fragments[0], fragments[nowFragmentIndex]);
+                    nowFragmentIndex = 0;
+                }
                 break;
 
             case R.id.rl_doc:
-                chooseItem(1);
+                if (nowFragmentIndex != 1) {
+                    chooseItem(1);
+                    showHideFragment(fragments[1], fragments[nowFragmentIndex]);
+                    nowFragmentIndex = 1;
+                }
+
                 break;
 
             case R.id.rl_mine:
-                chooseItem(2);
+                if (nowFragmentIndex != 2) {
+                    chooseItem(2);
+                    showHideFragment(fragments[2], fragments[nowFragmentIndex]);
+                }
                 break;
 
         }
@@ -72,5 +106,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 activityMainBinding.bottom.tvMine.setTextColor(Color.parseColor("#1296db"));
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

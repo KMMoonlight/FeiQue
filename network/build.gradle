@@ -37,7 +37,6 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.7.2'
     api 'com.squareup.okhttp3:logging-interceptor:4.7.2'
 
-    //添加Gson解析库
-    api 'com.google.code.gson:gson:2.8.6'
     implementation project(path: ':utils')
+    implementation project(path: ':entity')
 }

@@ -11,11 +11,11 @@ public class RetrofitClient {
 
     private static Retrofit retrofit;
 
-    private final String BASE_URL = "https://www.yuque.com/api/v2";
+    public static final String BASE_URL = "https://www.yuque.com/api/";
 
-    private RequestClient requestClient;
+    private static RequestClient requestClient;
 
-    private OkHttpClient initOkHttpClient() {
+    private static OkHttpClient initOkHttpClient() {
         //初始化OkHttpClient
         return new OkHttpClient
                 .Builder()
@@ -30,7 +30,7 @@ public class RetrofitClient {
 
 
     //构造请求对象
-    public RequestClient getRequestClient() {
+    public static RequestClient getRequestClient() {
 
         if (retrofit == null && requestClient == null) {
             //如果为空创建一个Retrofit对象

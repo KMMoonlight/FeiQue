@@ -6,9 +6,9 @@ import com.kmmoonlight.utils.FullScreenUtils;
 import com.kmmoonlight.utils.StatusBarUtils;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import me.yokeyword.fragmentation.SupportActivity;
 
-public class BaseActivity extends AppCompatActivity{
+public class BaseActivity extends SupportActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

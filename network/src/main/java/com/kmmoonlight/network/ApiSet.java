@@ -16,4 +16,5 @@ public class ApiSet {
     public static final String recommendUrl = RetrofitClient.BASE_URL + "explore/recommends?limit=20";
 
 
+    public static final String findDocUrl = RetrofitClient.BASE_URL + "docs/{slug}";
 }

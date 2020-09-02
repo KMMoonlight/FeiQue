@@ -1,9 +1,11 @@
 package com.kmmoonlight.feique.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -15,6 +17,7 @@ import com.kmmoonlight.entity.HotRepo;
 import com.kmmoonlight.entity.RecommendRepo;
 import com.kmmoonlight.feique.R;
 import com.kmmoonlight.feique.databinding.FragmentFindLayoutBinding;
+import com.kmmoonlight.feique.ui.FindDocActivity;
 import com.kmmoonlight.feique.ui.adapter.BookAdapter;
 import com.kmmoonlight.feique.ui.adapter.DocAdapter;
 import com.kmmoonlight.feique.ui.adapter.MyViewPagerAdapter;
@@ -83,8 +86,6 @@ public class FindFragment extends BaseFragment {
         viewList.add(view_recommend);
         viewList.add(view_book);
 
-
-
         //------------View Action-------------------
 
         BannerViewModel bannerViewModel = ViewModelProviders.of(this).get(BannerViewModel.class);
@@ -108,9 +109,10 @@ public class FindFragment extends BaseFragment {
                     @Override
                     public void onItemClick(XBanner banner, Object model, View view, int position) {
                         //跳转
-
-
-
+                        Intent intent = new Intent(getActivity(), FindDocActivity.class);
+                        intent.putExtra("slug", bannerRepo.getData().get(position).getSlug());
+                        intent.putExtra("book_id", bannerRepo.getData().get(position).getBook().getId());
+                        startActivity(intent);
                     }
                 });
             }
@@ -146,19 +148,28 @@ public class FindFragment extends BaseFragment {
         binding.findTab.getTabAt(0).setText(getResources().getString(R.string.hot));
         binding.findTab.getTabAt(1).setText(getResources().getString(R.string.recommend));
         binding.findTab.getTabAt(2).setText(getResources().getString(R.string.book));
+
+
+        lv_hot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FindDocActivity.class);
+                intent.putExtra("slug", hotRepoList.get(position).getSlug());
+                intent.putExtra("book_id", hotRepoList.get(position).getBook().getId());
+                startActivity(intent);
+            }
+        });
+
+        lv_recommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FindDocActivity.class);
+                intent.putExtra("slug", recommendRepoList.get(position).getSlug());
+                intent.putExtra("book_id", recommendRepoList.get(position).getBook().getId());
+                startActivity(intent);
+            }
+        });
+
     }
 
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-
-
-
-
-
-
-
-
-    }
 }

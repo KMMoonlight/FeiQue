@@ -1,8 +1,7 @@
 package com.kmmoonlight.feique.view_model;
 
-import com.kmmoonlight.entity.BannerRepo;
+import com.kmmoonlight.entity.BookRepo;
 import com.kmmoonlight.network.RetrofitClient;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,34 +11,35 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class BannerViewModel extends ViewModel {
+public class BookViewModel extends ViewModel {
 
-    private MutableLiveData<BannerRepo> bannerRepoData;
+    private MutableLiveData<BookRepo> bookRepoLiveData;
 
-    public LiveData<BannerRepo> getViewModel() {
+    public LiveData<BookRepo> getViewModel() {
 
-        if (bannerRepoData == null) {
-            bannerRepoData = new MutableLiveData<BannerRepo>();
-            loadData();
+        if (bookRepoLiveData == null) {
+
+            bookRepoLiveData = new MutableLiveData<BookRepo>();
+
+            dataLoader();
         }
 
-        return bannerRepoData;
+        return bookRepoLiveData;
     }
 
-    private void loadData() {
-        RetrofitClient.getRequestClient()
-                .getBannerData()
+    private void dataLoader() {
+        RetrofitClient.getRequestClient().getBookData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Response<BannerRepo>>() {
+                .subscribe(new Observer<Response<BookRepo>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<BannerRepo> bannerRepoResponse) {
-                        bannerRepoData.postValue(bannerRepoResponse.body());
+                    public void onNext(Response<BookRepo> bookRepoResponse) {
+                        bookRepoLiveData.postValue(bookRepoResponse.body());
                     }
 
                     @Override

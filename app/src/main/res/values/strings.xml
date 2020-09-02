@@ -9,4 +9,7 @@
     <string name="book">书籍</string>
     <string name="recommend">推荐</string>
     <string name="hot">热门</string>
+
+
+    <string name="publish">发布于</string>
 </resources>

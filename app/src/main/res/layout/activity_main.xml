@@ -8,6 +8,7 @@
     tools:context=".ui.MainActivity">
 
     <FrameLayout
+        android:layout_marginBottom="5dp"
         android:id="@+id/frame_container"
         android:layout_weight="1"
         android:layout_width="match_parent"

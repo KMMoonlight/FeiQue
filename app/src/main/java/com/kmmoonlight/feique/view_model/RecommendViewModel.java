@@ -1,8 +1,7 @@
 package com.kmmoonlight.feique.view_model;
 
-import com.kmmoonlight.entity.BannerRepo;
+import com.kmmoonlight.entity.RecommendRepo;
 import com.kmmoonlight.network.RetrofitClient;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,34 +11,34 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class BannerViewModel extends ViewModel {
+public class RecommendViewModel extends ViewModel {
 
-    private MutableLiveData<BannerRepo> bannerRepoData;
+    private MutableLiveData<RecommendRepo> recommendLiveData;
 
-    public LiveData<BannerRepo> getViewModel() {
+    public LiveData<RecommendRepo> getViewModel() {
 
-        if (bannerRepoData == null) {
-            bannerRepoData = new MutableLiveData<BannerRepo>();
-            loadData();
+        if (recommendLiveData == null) {
+            recommendLiveData = new MutableLiveData<RecommendRepo>();
+            loaderData();
         }
 
-        return bannerRepoData;
+        return recommendLiveData;
     }
 
-    private void loadData() {
+    private void loaderData() {
         RetrofitClient.getRequestClient()
-                .getBannerData()
+                .getRecommendData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Response<BannerRepo>>() {
+                .subscribe(new Observer<Response<RecommendRepo>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<BannerRepo> bannerRepoResponse) {
-                        bannerRepoData.postValue(bannerRepoResponse.body());
+                    public void onNext(Response<RecommendRepo> recommendRepoResponse) {
+                        recommendLiveData.postValue(recommendRepoResponse.body());
                     }
 
                     @Override

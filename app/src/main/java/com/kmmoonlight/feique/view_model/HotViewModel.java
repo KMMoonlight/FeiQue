@@ -1,8 +1,7 @@
 package com.kmmoonlight.feique.view_model;
 
-import com.kmmoonlight.entity.BannerRepo;
+import com.kmmoonlight.entity.HotRepo;
 import com.kmmoonlight.network.RetrofitClient;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,34 +11,33 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class BannerViewModel extends ViewModel {
+public class HotViewModel extends ViewModel {
 
-    private MutableLiveData<BannerRepo> bannerRepoData;
+    private MutableLiveData<HotRepo> hotRepoLiveData;
 
-    public LiveData<BannerRepo> getViewModel() {
+    public LiveData<HotRepo> getViewModel() {
 
-        if (bannerRepoData == null) {
-            bannerRepoData = new MutableLiveData<BannerRepo>();
-            loadData();
+        if (hotRepoLiveData == null) {
+            hotRepoLiveData = new MutableLiveData<>();
+            dataLoader();
         }
-
-        return bannerRepoData;
+        return hotRepoLiveData;
     }
 
-    private void loadData() {
+    private void dataLoader() {
         RetrofitClient.getRequestClient()
-                .getBannerData()
+                .getHotData()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Response<BannerRepo>>() {
+                .subscribe(new Observer<Response<HotRepo>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<BannerRepo> bannerRepoResponse) {
-                        bannerRepoData.postValue(bannerRepoResponse.body());
+                    public void onNext(Response<HotRepo> hotRepoResponse) {
+                        hotRepoLiveData.postValue(hotRepoResponse.body());
                     }
 
                     @Override
@@ -53,5 +51,4 @@ public class BannerViewModel extends ViewModel {
                     }
                 });
     }
-
 }

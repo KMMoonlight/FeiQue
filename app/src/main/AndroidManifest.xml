@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.FindDocActivity"></activity>
+        <activity android:name=".ui.RepoActivity"></activity>
+        <activity android:name=".ui.FindDocActivity" />
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.LauncherActivity">
             <intent-filter>

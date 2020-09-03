@@ -1,8 +1,7 @@
 package com.kmmoonlight.feique.view_model;
 
-import com.kmmoonlight.entity.FindDocRepo;
+import com.kmmoonlight.entity.BookRepo;
 import com.kmmoonlight.network.RetrofitClient;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,33 +11,25 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class FindDocViewModel extends ViewModel {
+public class UserRepoViewModel extends ViewModel {
 
-    private MutableLiveData<FindDocRepo> findDocRepoLiveData;
+    private MutableLiveData<BookRepo> repoLiveData;
 
-    public LiveData<FindDocRepo> getViewModel() {
+    public void loadData(int id) {
 
-        if (findDocRepoLiveData == null) {
-            findDocRepoLiveData = new MutableLiveData<>();
-        }
-
-        return findDocRepoLiveData;
-    }
-
-    public void loaderData(int id, int book_id) {
         RetrofitClient.getRequestClient()
-                .getFindDocData(book_id, id)
+                .getUserRepoData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Response<FindDocRepo>>() {
+                .subscribe(new Observer<Response<BookRepo>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<FindDocRepo> findDocRepoResponse) {
-                        findDocRepoLiveData.postValue(findDocRepoResponse.body());
+                    public void onNext(Response<BookRepo> bookRepoResponse) {
+                        repoLiveData.postValue(bookRepoResponse.body());
                     }
 
                     @Override
@@ -51,5 +42,14 @@ public class FindDocViewModel extends ViewModel {
 
                     }
                 });
+
     }
+
+    public LiveData<BookRepo> getViewModel() {
+        if (repoLiveData == null) {
+            repoLiveData = new MutableLiveData<>();
+        }
+        return repoLiveData;
+    }
+
 }

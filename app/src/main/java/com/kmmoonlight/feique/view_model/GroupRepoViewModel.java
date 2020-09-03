@@ -2,6 +2,7 @@ package com.kmmoonlight.feique.view_model;
 
 import com.kmmoonlight.entity.BookRepo;
 import com.kmmoonlight.network.RetrofitClient;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,24 +12,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class BookViewModel extends ViewModel {
+public class GroupRepoViewModel extends ViewModel {
 
-    private MutableLiveData<BookRepo> bookRepoLiveData;
+    private MutableLiveData<BookRepo> repoLiveData;
 
-    public LiveData<BookRepo> getViewModel() {
+    public void loadData(int id) {
 
-        if (bookRepoLiveData == null) {
-
-            bookRepoLiveData = new MutableLiveData<BookRepo>();
-
-            dataLoader();
-        }
-
-        return bookRepoLiveData;
-    }
-
-    private void dataLoader() {
-        RetrofitClient.getRequestClient().getBookData()
+        RetrofitClient.getRequestClient()
+                .getGroupRepoData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Response<BookRepo>>() {
@@ -39,7 +30,7 @@ public class BookViewModel extends ViewModel {
 
                     @Override
                     public void onNext(Response<BookRepo> bookRepoResponse) {
-                        bookRepoLiveData.postValue(bookRepoResponse.body());
+                        repoLiveData.postValue(bookRepoResponse.body());
                     }
 
                     @Override
@@ -54,4 +45,11 @@ public class BookViewModel extends ViewModel {
                 });
     }
 
+    public LiveData<BookRepo> getViewModel() {
+        if (repoLiveData == null) {
+            repoLiveData = new MutableLiveData<>();
+        }
+
+        return repoLiveData;
+    }
 }

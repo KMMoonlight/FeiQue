@@ -1,8 +1,7 @@
 package com.kmmoonlight.feique.view_model;
 
-import com.kmmoonlight.entity.FindDocRepo;
+import com.kmmoonlight.entity.GroupRepo;
 import com.kmmoonlight.network.RetrofitClient;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,33 +11,33 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class FindDocViewModel extends ViewModel {
+public class GroupViewModel extends ViewModel {
 
-    private MutableLiveData<FindDocRepo> findDocRepoLiveData;
+    private MutableLiveData<GroupRepo> groupRepoLiveData;
 
-    public LiveData<FindDocRepo> getViewModel() {
-
-        if (findDocRepoLiveData == null) {
-            findDocRepoLiveData = new MutableLiveData<>();
+    public LiveData<GroupRepo> getViewModel() {
+        if (groupRepoLiveData == null) {
+            groupRepoLiveData = new MutableLiveData<>();
         }
 
-        return findDocRepoLiveData;
+        return groupRepoLiveData;
     }
 
-    public void loaderData(int id, int book_id) {
+    public void loaderData(int id) {
+
         RetrofitClient.getRequestClient()
-                .getFindDocData(book_id, id)
+                .getGroupData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Response<FindDocRepo>>() {
+                .subscribe(new Observer<Response<GroupRepo>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<FindDocRepo> findDocRepoResponse) {
-                        findDocRepoLiveData.postValue(findDocRepoResponse.body());
+                    public void onNext(Response<GroupRepo> groupRepoResponse) {
+                        groupRepoLiveData.postValue(groupRepoResponse.body());
                     }
 
                     @Override
@@ -52,4 +51,5 @@ public class FindDocViewModel extends ViewModel {
                     }
                 });
     }
+
 }

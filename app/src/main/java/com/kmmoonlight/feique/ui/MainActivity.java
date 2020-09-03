@@ -11,7 +11,9 @@ import com.kmmoonlight.feique.ui.base.BaseActivity;
 import com.kmmoonlight.feique.ui.fragment.DocFragment;
 import com.kmmoonlight.feique.ui.fragment.FindFragment;
 import com.kmmoonlight.feique.ui.fragment.MineFragment;
+import com.kmmoonlight.feique.view_model.UserViewModel;
 
+import androidx.lifecycle.ViewModelProviders;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -20,12 +22,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int nowFragmentIndex = 0;
     private SupportFragment[] fragments;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
         initView();
+        userInit();
+    }
+
+    private void userInit() {
+        //初始化了User数据
+        ViewModelProviders.of(this).get(UserViewModel.class);
     }
 
     private void initView() {
@@ -73,6 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (nowFragmentIndex != 2) {
                     chooseItem(2);
                     showHideFragment(fragments[2], fragments[nowFragmentIndex]);
+                    nowFragmentIndex = 2;
                 }
                 break;
 

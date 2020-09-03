@@ -1,10 +1,14 @@
 package com.kmmoonlight.feique.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.RenderProcessGoneDetail;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -26,7 +30,7 @@ import androidx.lifecycle.ViewModelProviders;
 public class FindDocActivity extends BaseActivity {
 
     private ActivityFindDocBinding binding;
-    private String slug = "";
+    private int id = 0;
     private int book_id = 0;
 
 
@@ -38,7 +42,7 @@ public class FindDocActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
-        slug = intent.getStringExtra("slug");
+        id = intent.getIntExtra("id",0);
         book_id = intent.getIntExtra("book_id", 0);
 
         init();
@@ -62,6 +66,7 @@ public class FindDocActivity extends BaseActivity {
         findDocViewModel.getViewModel().observe(this, new Observer<FindDocRepo>() {
             @Override
             public void onChanged(FindDocRepo findDocRepo) {
+
                 //监听数据的变化
                 binding.clTitle.setTitle(findDocRepo.getData().getTitle());
 
@@ -78,7 +83,7 @@ public class FindDocActivity extends BaseActivity {
                 }
 
                 try {
-                    binding.webView.loadDataWithBaseURL(null, findDocRepo.getData().getContent(), "text/html", "UTF-8", null);
+                    binding.webView.loadDataWithBaseURL(null, findDocRepo.getData().getBody_html(), "text/html; charset=utf-8", "utf-8", null);
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -86,7 +91,7 @@ public class FindDocActivity extends BaseActivity {
             }
         });
         //发送请求
-        findDocViewModel.loaderData(slug, book_id);
+        findDocViewModel.loaderData(id, book_id);
     }
 
 
@@ -108,17 +113,23 @@ public class FindDocActivity extends BaseActivity {
         webSettings.setAppCacheEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadsImagesAutomatically(true);
-        webSettings.setTextZoom(150);
+
+        webSettings.setTextZoom(300);
+        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+
 
         binding.webView.setWebViewClient(new WebViewClient(){
 
             //用于添加中间Filter
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return super.shouldOverrideUrlLoading(view, request);
+                return false;
             }
 
-
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
         });
 
     }

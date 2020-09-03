@@ -17,7 +17,7 @@
             android:id="@+id/cl_title"
             app:expandedTitleGravity="left|bottom"
             app:collapsedTitleGravity="left|center_vertical"
-            app:contentScrim="@color/colorPrimary"
+            app:contentScrim="@color/titleColor"
             app:scrimAnimationDuration="500"
             app:scrimVisibleHeightTrigger="200dp"
             app:statusBarScrim="@color/titleColor"
@@ -36,12 +36,12 @@
 
 
             <androidx.appcompat.widget.Toolbar
-                android:layout_marginTop="30dp"
+                android:paddingTop="30dp"
                 android:id="@+id/tool_bar"
                 android:minHeight="56dp"
                 app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"/>
+                android:layout_height="86dp"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -49,6 +49,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:scrollbars="none"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -112,6 +113,8 @@
 
 
             <WebView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:id="@+id/web_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

@@ -22,16 +22,16 @@ public class FindDocRepo {
 
         private String updated_at;
 
-        private String content;
+        private String body_html;
 
-        private UserBean user;
+        private UserBean creator;
 
         public UserBean getUser() {
-            return user;
+            return creator;
         }
 
         public void setUser(UserBean user) {
-            this.user = user;
+            this.creator = user;
         }
 
         public String getTitle() {
@@ -66,14 +66,13 @@ public class FindDocRepo {
             this.updated_at = updated_at;
         }
 
-        public String getContent() {
-            return content;
+        public String getBody_html() {
+            return body_html;
         }
 
-        public void setContent(String content) {
-            this.content = content;
+        public void setBody_html(String body_html) {
+            this.body_html = body_html;
         }
-
 
         public static class UserBean {
             private String name;

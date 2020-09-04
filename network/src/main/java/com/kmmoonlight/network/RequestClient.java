@@ -2,6 +2,7 @@ package com.kmmoonlight.network;
 
 import com.kmmoonlight.entity.BannerRepo;
 import com.kmmoonlight.entity.BookRepo;
+import com.kmmoonlight.entity.DocTreeRepo;
 import com.kmmoonlight.entity.FindDocRepo;
 import com.kmmoonlight.entity.GroupRepo;
 import com.kmmoonlight.entity.HotRepo;
@@ -38,4 +39,6 @@ public interface RequestClient {
     @GET(ApiSet.repoUserUrl)
     Observable<Response<BookRepo>> getUserRepoData(@Path("id") int id);
 
+    @GET(ApiSet.docTreeUrl)
+    Observable<Response<DocTreeRepo>> getDocTreeData(@Path("id") int id);
 }

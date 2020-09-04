@@ -3,6 +3,7 @@ package com.kmmoonlight.network;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,6 +17,10 @@ public class RetrofitClient {
     private static RequestClient requestClient;
 
     private static OkHttpClient initOkHttpClient() {
+
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         //初始化OkHttpClient
         return new OkHttpClient
                 .Builder()
@@ -23,7 +28,7 @@ public class RetrofitClient {
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 //添加拦截器
-                .addInterceptor(LogInterceptor.getLogInterceptor())
+                .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(new CommonInterceptor())
                 .build();
     }

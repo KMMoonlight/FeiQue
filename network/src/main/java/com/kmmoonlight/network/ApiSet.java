@@ -27,4 +27,7 @@ public class ApiSet {
     public static final String repoUserUrl = RetrofitClient.BASE_URL + "v2/users/{id}/repos?type=Book";
 
 
+    //DocTree
+    public static final String docTreeUrl = RetrofitClient.BASE_URL + "v2/repos/{id}/toc";
+
 }

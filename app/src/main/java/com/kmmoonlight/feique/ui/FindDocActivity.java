@@ -2,6 +2,7 @@ package com.kmmoonlight.feique.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -61,6 +62,8 @@ public class FindDocActivity extends BaseActivity {
                 finish();
             }
         });
+        binding.clTitle.setCollapsedTitleTextColor(Color.WHITE);
+        binding.clTitle.setExpandedTitleColor(Color.GRAY);
 
         FindDocViewModel findDocViewModel = ViewModelProviders.of(this).get(FindDocViewModel.class);
         findDocViewModel.getViewModel().observe(this, new Observer<FindDocRepo>() {

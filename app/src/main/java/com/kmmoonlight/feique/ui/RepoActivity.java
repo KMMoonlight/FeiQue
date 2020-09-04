@@ -3,6 +3,7 @@ package com.kmmoonlight.feique.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.kmmoonlight.entity.BookRepo;
 import com.kmmoonlight.feique.databinding.ActivityRepoBinding;
@@ -79,6 +80,15 @@ public class RepoActivity extends BaseActivity {
                 }
             });
         }
+
+        binding.lvRepo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(RepoActivity.this, DocTreeActivity.class);
+                intent.putExtra("id", repoList.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void notifyRepoAdapter(BookRepo bookRepo) {

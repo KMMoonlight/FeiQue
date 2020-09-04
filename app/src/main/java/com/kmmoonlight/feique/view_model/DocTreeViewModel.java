@@ -1,12 +1,8 @@
 package com.kmmoonlight.feique.view_model;
 
-import android.util.Log;
-
-import com.kmmoonlight.entity.FindDocRepo;
+import com.kmmoonlight.entity.DocTreeRepo;
 import com.kmmoonlight.network.RetrofitClient;
-import com.kmmoonlight.utils.LogUtils;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.Observer;
@@ -15,33 +11,26 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-public class FindDocViewModel extends ViewModel {
+public class DocTreeViewModel extends ViewModel {
 
-    private MutableLiveData<FindDocRepo> findDocRepoLiveData;
+    private MutableLiveData<DocTreeRepo> docTreeRepoLiveData;
 
-    public LiveData<FindDocRepo> getViewModel() {
 
-        if (findDocRepoLiveData == null) {
-            findDocRepoLiveData = new MutableLiveData<>();
-        }
+    public void loadData(int id) {
 
-        return findDocRepoLiveData;
-    }
-
-    public void loaderData(int id, int book_id) {
         RetrofitClient.getRequestClient()
-                .getFindDocData(book_id, id)
+                .getDocTreeData(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Response<FindDocRepo>>() {
+                .subscribe(new Observer<Response<DocTreeRepo>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<FindDocRepo> findDocRepoResponse) {
-                        findDocRepoLiveData.postValue(findDocRepoResponse.body());
+                    public void onNext(Response<DocTreeRepo> docTreeRepoResponse) {
+                        docTreeRepoLiveData.postValue(docTreeRepoResponse.body());
                     }
 
                     @Override
@@ -54,5 +43,13 @@ public class FindDocViewModel extends ViewModel {
 
                     }
                 });
+    }
+
+
+    public MutableLiveData<DocTreeRepo> getViewModel() {
+        if (docTreeRepoLiveData == null){
+            docTreeRepoLiveData = new MutableLiveData<>();
+        }
+        return docTreeRepoLiveData;
     }
 }

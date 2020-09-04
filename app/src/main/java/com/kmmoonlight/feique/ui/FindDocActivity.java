@@ -103,11 +103,15 @@ public class FindDocActivity extends BaseActivity {
 
         WebSettings webSettings = binding.webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setSupportZoom(false);
-        webSettings.setBuiltInZoomControls(false);
+
+        //缩放但是不显示缩放按钮
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
+        webSettings.setUseWideViewPort(false);
+
+
         webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -117,26 +121,41 @@ public class FindDocActivity extends BaseActivity {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setLoadsImagesAutomatically(true);
 
-        webSettings.setTextZoom(300);
-        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-
 
         binding.webView.setWebViewClient(new WebViewClient(){
-
             //用于添加中间Filter
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return false;
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
             }
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 handler.proceed();
             }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                imgReset();
+            }
         });
 
     }
 
+
+
+    private void imgReset() {
+        binding.webView.loadUrl("javascript:(function(){" +
+            "var objs = document.getElementsByTagName('img'); " +
+            "for(var i=0;i<objs.length;i++)  " +
+            "{"
+            + "var img = objs[i];   " +
+            "    img.style.maxWidth = '100%'; img.style.height = 'auto';  " +
+            "}" +
+            "})()");
+    }
 
 
 }

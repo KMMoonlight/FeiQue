@@ -1,10 +1,10 @@
 package com.kmmoonlight.feique.ui.fragment;
 
 import android.animation.ObjectAnimator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +13,25 @@ import android.widget.AdapterView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.kmmoonlight.entity.GroupRepo;
 import com.kmmoonlight.entity.UserRepo;
 import com.kmmoonlight.feique.R;
 import com.kmmoonlight.feique.databinding.FragmentMineLayoutBinding;
+import com.kmmoonlight.feique.ui.LauncherActivity;
 import com.kmmoonlight.feique.ui.RepoActivity;
 import com.kmmoonlight.feique.ui.adapter.GroupAdapter;
 import com.kmmoonlight.feique.ui.base.BaseFragment;
 import com.kmmoonlight.feique.view_model.GroupViewModel;
 import com.kmmoonlight.feique.view_model.UserViewModel;
+import com.kmmoonlight.utils.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -35,12 +39,12 @@ import androidx.lifecycle.ViewModelProviders;
 public class MineFragment extends BaseFragment {
 
     private FragmentMineLayoutBinding binding;
-
     private ObjectAnimator objectAnimator;
-
     private GroupAdapter groupAdapter;
     private List<GroupRepo.DataBean> groupList;
     private LiveData<UserRepo> userViewModel;
+    private AlertDialog alertDialog;
+
 
     @Nullable
     @Override
@@ -103,6 +107,42 @@ public class MineFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
+
+        //Log out
+        binding.tvLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (alertDialog == null) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog);
+
+                    builder.setTitle(getResources().getString(R.string.tip))
+                            .setMessage(R.string.log_out_tip)
+                            .setPositiveButton(getResources().getText(R.string.confirm), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SPUtils.clearData(getActivity(), "X-Auth-Token");
+                                    Intent intent = new Intent(getActivity(), LauncherActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            }).setNegativeButton(getResources().getText(R.string.cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    alertDialog = builder.create();
+
+                }
+
+                alertDialog.show();
+            }
+        });
+
     }
 
 

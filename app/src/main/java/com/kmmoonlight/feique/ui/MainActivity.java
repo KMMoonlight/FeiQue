@@ -11,6 +11,9 @@ import com.kmmoonlight.feique.ui.base.BaseActivity;
 import com.kmmoonlight.feique.ui.fragment.DocFragment;
 import com.kmmoonlight.feique.ui.fragment.FindFragment;
 import com.kmmoonlight.feique.ui.fragment.MineFragment;
+import com.kmmoonlight.feique.view_model.GroupRepoViewModel;
+import com.kmmoonlight.feique.view_model.GroupViewModel;
+import com.kmmoonlight.feique.view_model.UserRepoViewModel;
 import com.kmmoonlight.feique.view_model.UserViewModel;
 
 import androidx.lifecycle.ViewModelProviders;

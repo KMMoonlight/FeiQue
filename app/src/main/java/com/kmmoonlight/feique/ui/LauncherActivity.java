@@ -38,7 +38,7 @@ public class LauncherActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                String inputToken = binding.etToken.getText().toString();
+                String inputToken = binding.etToken.getText().toString().trim();
 
                 if (!TextUtils.isEmpty(inputToken)) {
                     AuthToken.XAuthToken = inputToken;
